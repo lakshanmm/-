@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASHAN-MD Vercel Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 HASHAN-MD Vercel Test</h1>
+        <p>This is a simplified version for Vercel deployment testing</p>
+        
+        <button onclick="testServer()">Test Server Connection</button>
+        <button onclick="testPairing()">Test Pairing</button>
+        
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        async function testServer() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing server...';
+            resultDiv.style.display = 'block';
+            
+            try {
+                const response = await fetch('/ping');
+                const data = await response.json();
+                resultDiv.innerHTML = `✅ Server Response: ${data.message}`;
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Error: ${error.message}`;
+            }
+        }
+
+        async function testPairing() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testing pairing...';
+            resultDiv.style.display = 'block';
+            
+            try {
+                const response = await fetch('/code?number=94701234567');
+                const data = await response.json();
+                resultDiv.innerHTML = `✅ Pairing Test: Code - ${data.code}`;
+            } catch (error) {
+                resultDiv.innerHTML = `❌ Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
