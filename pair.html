@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pair - HASHAN-MD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        input {
+            background: rgba(255, 255, 255, 0.9);
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔗 Pair Your Number</h1>
+        <p>Enter your WhatsApp number:</p>
+        <input type="text" id="number" placeholder="94701234567">
+        <button onclick="pairNumber()">Get Pairing Code</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        async function pairNumber() {
+            const number = document.getElementById('number').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!number || number.length < 10) {
+                resultDiv.innerHTML = '❌ Please enter a valid number';
+                resultDiv.style.display = 'block';
+                return;
+            }
+
+            resultDiv.innerHTML = '⏳ Getting pairing code...';
+            resultDiv.style.display = 'block';
+
+            try {
+                const response = await fetch(`/code?number=${number}`);
+                const data = await response.json();
+                
+                if (data.code) {
+                    resultDiv.innerHTML = `✅ Your pairing code: <strong>${data.code}</strong>`;
+                } else {
+                    resultDiv.innerHTML = '❌ Failed to get pairing code';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '❌ Connection error. Please try again.';
+            }
+        }
+    </script>
+</body>
+</html>
